@@ -86,7 +86,7 @@ public class Main {
         while (option == null) {
             try {
                 option = Integer.parseInt(in.next());
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Enter the number");
             }
         }
@@ -94,15 +94,7 @@ public class Main {
     }
 
     static String getString() {
-        String s = null;
-        while (s == null || s.length() == 0) {
-            try {
-                s = in.next();
-            } catch (Exception e) {
-                System.out.println("Enter the field");
-            }
-        }
-        return s;
+        return in.next();
     }
 
 }
