@@ -37,48 +37,20 @@ public class Main {
     }
 
     static void createTask() {
+        //TO DO
 
-        System.out.println("\nThis is create task menu.");
-        System.out.println("Enter task title");
-        String title = getString();
-        System.out.println("Enter task type");
-        String type = getString();
-        System.out.println("Enter task priority");
-        int priority = getInt();
-
-        // create and save task
-        System.out.println("Task was created");
     }
 
     static void editTask() {
-        System.out.println("\nThis is edit task menu.");
-        System.out.println("Enter task id");
-        int id = getInt();
-        System.out.println("Enter task title");
-        String title = getString();
-        System.out.println("Enter task type");
-        String type = getString();
-        System.out.println("Enter task priority");
-        int priority = getInt();
-
-        // get task and update
-        System.out.println("Task was updated");
+       //TO DO
     }
 
     static void deleteTask() {
-        System.out.println("\nThis is delete task menu.");
-        System.out.println("Enter task id");
-        int id = getInt();
-
-        // delete
-        System.out.println("Task was deleted");
+     //TO DO
     }
 
     static void viewTasks() {
-        System.out.println("\nThis is view task menu.");
-
-        // show tasks
-        System.out.println("Task are  here");
+     //TO DO
     }
 
     static int getInt() {
