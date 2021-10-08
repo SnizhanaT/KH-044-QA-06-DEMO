@@ -2,7 +2,7 @@ public class Task {
     private String title;
     private String type;
     private int priority;
-    LocalDateTime dateTime;
+    private LocalDateTime dateTime;
     //static int count = 0; - можна зробити таку штуку, щоб вона автоматично підраховувала кількість об'єктів
 
     public String getTitle(){
@@ -37,7 +37,7 @@ public class Task {
         this.dateTime = dateTime;
     }
 
-    public Task(String title, String types, int priority){
+    public Task(String title, String types, int priority,LocalDateTime dateTime){
         this.title = title;
         this.type = types;
         this.priority = priority;
