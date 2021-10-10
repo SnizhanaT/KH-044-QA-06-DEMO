@@ -18,15 +18,5 @@ public class DateUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimePattern);
         String formattedDateTime = localDateTime.format(formatter);
         return formattedDateTime;
-
-    }
-
-    public static void main(String[] args) throws Exception {
-        LocalDateTime localDateTime = parseFromString("2021-11-23T13:43:15");
-        System.out.println(localDateTime);
-
-        System.out.println(dateTimeToString(localDateTime));
     }
 }
-
-
