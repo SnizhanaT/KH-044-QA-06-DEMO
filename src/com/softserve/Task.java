@@ -1,10 +1,12 @@
 package com.softserve;
 
+import java.time.LocalDateTime;
+
 public class Task {
     private String title;
     private String type;
     private int priority;
-    //private LocalDateTime dateTime;
+    private LocalDateTime dateTime;
 
     public String getTitle(){
         return title;
@@ -30,38 +32,32 @@ public class Task {
         this.priority = priority;
     }
 
-    /*public LocalDateTime getDateTime(){
-        return dateTime;
-    }
+    public LocalDateTime getDateTime(){ return dateTime; }
 
-    public void setDateTime(){
-        this.dateTime = dateTime;
-    }*/
+    public void setDateTime(){ this.dateTime = dateTime; }
 
-    public Task(String title, String types, int priority/*LocalDateTime dateTime*/){
+    public Task(String title, String types, int priority, LocalDateTime dateTime){
         this.title = title;
         this.type = types;
         this.priority = priority;
-        //this.dateTime = dateTime;
+        this.dateTime = dateTime;
     }
+
     public Task(String taskString){
-      String[] split = taskString.split(" ");
+      String[] split = taskString.split("!");
       this.title = split [0];
       this.type = split [1];
       this.priority = Integer.parseInt(split[2]);
+      this.dateTime = DateUtils.parseFromString(split[3]);
     }
+
     public void getTaskDescription(){
         System.out.println("Task title: " + title);
         System.out.println("Task type: " + type);
         System.out.println("Priority: " + priority);
+        System.out.println("Date and Time: " + dateTime);
     }
-    public String toSrting(){
-        return title + " " + type + " " + priority;
+    public String toString(){
+        return title + "!" + type + "!" + priority + "!" + dateTime;
     }
-    public static void main (String[]args){
-        Task task1 = new Task ("Title Type 3");
-        System.out.println(task1.toSrting());
-    }
-
-
 }
