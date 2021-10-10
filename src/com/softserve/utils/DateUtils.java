@@ -14,11 +14,11 @@ public class DateUtils {
     }
 
     //output for user;
-    public static LocalDateTime dateTimeToString(LocalDateTime localDateTime) {
+    public static String dateTimeToString(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimePattern);
         String formattedDateTime = localDateTime.format(formatter);
-        //return formattedDateTime;  // тут не совсем понимаю почему Идея просит использовать метод, который на след строке:
-        return LocalDateTime.parse(formattedDateTime);
+        return formattedDateTime;
+
     }
 
     public static void main(String[] args) throws Exception {
