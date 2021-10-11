@@ -7,42 +7,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.softserve.utils.Application.tasksList;
-
 public class FileUtils {
 
     public static final String taskFileName = "tasks.txt";
     public static final String deletedTaskFileName = "deletedTasks.txt";
 
 
-    public static void writeFile(String taskFileName, List<Task> tasks) { //Юля перпеписує цей метод
-         try {
+    public static void writeFile(String taskFileName, List<Task> tasks) {
+        try {
             FileWriter fileWriter = new FileWriter(taskFileName);
-            fileWriter.write(String.valueOf(tasks));
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                fileWriter.write(task.toString() + "\n");
+            }
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static List<Task> readFile(String taskFileName) { //Юля переписує цей метод
+    public static List<Task> readFile(String taskFileName) {
+        List<Task> tasks = new ArrayList<>();
         try {
             File file = new File(taskFileName);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.hasNextLine());
+                tasks.add(new Task(scanner.nextLine()));
             }
             scanner.close();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        return tasksList;
+        return tasks;
     }
 
     public static void createIfNotExists(String taskFileName) {
         try {
             File file = new File(taskFileName);
             file.createNewFile();
+            List<String> List = new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
