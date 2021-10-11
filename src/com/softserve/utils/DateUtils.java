@@ -6,13 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class DateUtils {
 
     public final static String dateTimePattern = "dd-MM-yyyy HH:mm";
-
-    //parsing from String;
-    public static LocalDateTime parseFromString(String dateTime) {
+  
+    public static LocalDateTime parseFromString (String dateTime) {
         LocalDateTime localDateTime = LocalDateTime.parse(dateTime);
         return localDateTime;
     }
-
+  
     //output for user;
     public static String dateTimeToString(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimePattern);
