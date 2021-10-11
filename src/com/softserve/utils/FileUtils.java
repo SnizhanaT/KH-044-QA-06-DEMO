@@ -41,7 +41,6 @@ public class FileUtils {
         try {
             File file = new File(taskFileName);
             file.createNewFile();
-            List<String> List = new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
