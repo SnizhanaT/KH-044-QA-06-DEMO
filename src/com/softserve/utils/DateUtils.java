@@ -17,6 +17,7 @@ public class DateUtils {
     public static String dateTimeToString(LocalDateTime localDateTime) {
         String formattedDateTime = localDateTime.format(dateTimeFormatter);
         return formattedDateTime;
+<<<<<<< HEAD
     }
 
     public static void main(String[] args) {
@@ -26,5 +27,7 @@ public class DateUtils {
         System.out.println(str);
         LocalDateTime dateTime = parseFromString(str);
         System.out.println(dateTimeToString(dateTime));
+=======
+>>>>>>> 4a8dbc144bd037397b734487a653e8a41fe5d33d
     }
 }
