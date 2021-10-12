@@ -64,7 +64,7 @@ public class Task {
         this.type = split[1];
         this.priority = Integer.parseInt(split[2]);
         this.dateTime = DateUtils.parseFromString(split[3]);
-        this.deletedTime = DateUtils.parseFromString(split[4]);
+        this.deletedTime = (split[4] != null) ? DateUtils.parseFromString(split[4]) : null;
     }
 
     public void getTaskDescription() {
@@ -78,6 +78,7 @@ public class Task {
     }
 
     public String toString() {
-        return title + "!" + type + "!" + priority + "!" + dateTime + "!" + deletedTime;
+        return title + "!" + type + "!" + priority + "!" + DateUtils.dateTimeToString(dateTime) + "!"
+                + ((deletedTime != null) ? DateUtils.dateTimeToString(deletedTime) : null );
     }
 }
