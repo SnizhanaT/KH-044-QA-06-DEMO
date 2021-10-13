@@ -2,6 +2,7 @@ package com.softserve.utils;
 
 import com.softserve.Task;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.softserve.utils.ConsoleUtils.getInt;
@@ -18,30 +19,59 @@ public class Application {
 
     static void editTask() {
         System.out.println("This is edit task menu");
-        System.out.println("Enter task id to edit:");
-        int taskId = getInt();
-        System.out.println("Task " + taskId);
-        Task task = null;
-        for (int i = 0; i < tasksList.size(); i++) {
-            Task t = tasksList.get(i);
-            if(t.getId() == taskId) {
-                task = t;
-            }
-        }
-        if(task == null) {
-            System.out.println("Task with id " +taskId + " not found.");
+        System.out.println("Enter task index to edit:");
+        int taskIndex = getInt();
+        System.out.println("Task index " + taskIndex);
+        if(taskIndex < 0 || taskIndex >= tasksList.size()) {
+            System.out.println("Task index is not valid.");
         } else {
-            System.out.println("Enter title");
-            String title = getString();
-            System.out.println("Enter type");
-            String type = getString();
-            System.out.println("Enter priority");
-            int priority = getInt();
-            task.setTitle(title);
-            task.setType(type);
-            task.setPriority(priority);
-            task.setDateTime(); // дату обновить?
-            System.out.println("Task with id " +taskId + " was updated.");
+            Task task = tasksList.get(taskIndex);
+            System.out.println("Select how to edit:");
+            System.out.println("1 - Update all fields");
+            System.out.println("2 - Update title");
+            System.out.println("3 - Update type");
+            System.out.println("4 - Update priority");
+
+            int option = getInt();
+
+            switch (option) {
+                case 1:
+                    System.out.println("Task: " + task.toString());
+                    System.out.println("Enter title");
+                    String title = getString();
+                    System.out.println("Enter type");
+                    String type = getString();
+                    System.out.println("Enter priority");
+                    int priority = getInt();
+                    task.setTitle(title);
+                    task.setType(type);
+                    task.setPriority(priority);
+                    System.out.println("Task with index " +taskIndex + " was updated.");
+                    break;
+                case 2:
+                    System.out.println("Task title: " + task.getTitle());
+                    System.out.println("Enter title");
+                    String t = getString();
+                    task.setTitle(t);
+                    System.out.println("Task title was updated.");
+                    break;
+                case 3:
+                    System.out.println("Task type: " + task.getType());
+                    System.out.println("Enter type");
+                    String tp = getString();
+                    task.setType(tp);
+                    System.out.println("Task type was updated.");
+                    break;
+                case 4:
+                    System.out.println("Task priority: " + task.getPriority());
+                    System.out.println("Enter priority");
+                    int p = getInt();
+                    task.setPriority(p);
+                    System.out.println("Task priority was updated.");
+                    break;
+                default:
+                    System.out.println("Invalid option");
+            }
         }
     }
 

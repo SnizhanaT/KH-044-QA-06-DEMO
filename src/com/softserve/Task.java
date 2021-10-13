@@ -10,10 +10,6 @@ public class Task {
     private int priority;
     private LocalDateTime dateTime;
 
-    public int getId() {
-        return 0;// id
-    }
-
     public String getTitle() {
         return title;
     }
