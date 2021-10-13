@@ -39,7 +39,7 @@ public class Task {
         return dateTime;
     }
 
-    public void setDateTime() {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -47,7 +47,7 @@ public class Task {
         return deletedTime;
     }
 
-    public void setDeletedTime() {
+    public void setDeletedTime(LocalDateTime deletedTime) {
         this.deletedTime = deletedTime;
     }
 
