@@ -3,7 +3,6 @@ package com.softserve.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class DateUtils {
 
     public final static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
