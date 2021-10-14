@@ -9,6 +9,8 @@ public class Task {
     private String type;
     private int priority;
     private LocalDateTime dateTime;
+    private LocalDateTime deletedTime;
+    private String description;
 
     public String getTitle() {
         return title;
@@ -38,8 +40,17 @@ public class Task {
         return dateTime;
     }
 
-    public void setDateTime() {
+
+    public void setDateTime(LocalDateTime dateTime) { //check with localDateTime
         this.dateTime = dateTime;
+    }
+
+    public LocalDateTime getDeletedTime() {
+        return deletedTime;
+    }
+
+    public void setDeletedTime(LocalDateTime deletedTime) {
+        this.deletedTime = deletedTime;
     }
 
     public Task(String title, String types, int priority, LocalDateTime dateTime) {
@@ -55,16 +66,24 @@ public class Task {
         this.type = split[1];
         this.priority = Integer.parseInt(split[2]);
         this.dateTime = DateUtils.parseFromString(split[3]);
+        this.deletedTime = (deletedTime != null) ? DateUtils.parseFromString(split[4]) : null;
     }
 
-    public void getTaskDescription() {
-        System.out.println("Task title: " + title);
-        System.out.println("Task type: " + type);
-        System.out.println("Priority: " + priority);
-        System.out.println("Date and Time: " + dateTime);
+
+    public String getPrintTaskDescription() {
+        description = "Task title: " + title + "Task type: " + type + "Priority: " + priority + "Date and Time: " + dateTime ;
+        if (deletedTime != null) {
+            description = description + "Deleted Date and Time: " + deletedTime;
+        }
+        return description;
     }
+
 
     public String toString() {
-        return title + "!" + type + "!" + priority + "!" + dateTime;
+        return title + "!" + type + "!" + priority + "!" + DateUtils.dateTimeToString(dateTime) + "!"
+                + ((deletedTime != null) ? DateUtils.dateTimeToString(deletedTime) : null);
     }
+   
+
 }
+
