@@ -200,6 +200,43 @@ public class Application {
         //TODO
     }
 
+    static void restoreTask() {
+        System.out.println("This is restore task menu \nChoose option: ");
+        int option;
+        do {
+            System.out.println("1 - Choose task that needs to be restored");
+            System.out.println("-1 - Go back to main menu");
+            option = getInt();
+        }
+        while (option != 1 && option != -1);
+
+        switch (option) {
+            case 1:
+                System.out.println("View deleted tasks list and choose the id of task for restoring :");
+                for (int i = 0; i < deletedTasksList.size(); i++) {
+                    System.out.println("tasks id : " + i);
+                    deletedTasksList.get(i).getTaskDescription();
+                }
+                int taskIndex = getInt();
+                do {
+                    System.out.println("Task id is not valid. Try again.");
+                    option = getInt();
+                }
+                while (taskIndex < 0 || taskIndex >= tasksList.size());
+
+                Task restoredTask = deletedTasksList.remove(taskIndex);
+                restoredTask.setDateTime(null);
+                tasksList.add(restoredTask);
+                writeFile(deletedTaskFileName, deletedTasksList);
+                writeFile(taskFileName, tasksList);
+                System.out.println("Successfully restored");
+                break;
+            case -1:
+                System.out.println("Go back to main menu");
+                //System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
         createIfNotExists(taskFileName);
         tasksList = readFile(taskFileName);
@@ -215,6 +252,7 @@ public class Application {
             System.out.println("2 - Edit task");
             System.out.println("3 - Delete task");
             System.out.println("4 - View tasks");
+            System.out.println("5 - Restore task");
             System.out.println("0 - Exit");
             option = getInt();
             switch (option) {
@@ -229,6 +267,9 @@ public class Application {
                     break;
                 case 4:
                     viewTasks();
+                    break;
+                case 5:
+                    restoreTask();
                     break;
                 case 0:
                     System.out.println("Good bye");

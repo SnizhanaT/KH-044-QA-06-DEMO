@@ -40,7 +40,8 @@ public class Task {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+
+    public void setDateTime(LocalDateTime dateTime) { //check with localDateTime
         this.dateTime = dateTime;
     }
 
@@ -68,6 +69,7 @@ public class Task {
         this.deletedTime = (deletedTime != null) ? DateUtils.parseFromString(split[4]) : null;
     }
 
+
     public String getPrintTaskDescription() {
         description = "Task title: " + title + "Task type: " + type + "Priority: " + priority + "Date and Time: " + dateTime ;
         if (deletedTime != null) {
@@ -84,3 +86,4 @@ public class Task {
    
 
 }
+
