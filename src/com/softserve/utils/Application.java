@@ -31,24 +31,27 @@ public class Application {
 
     static void restoreTask() {
         System.out.println("This is restore task menu \nChoose option: ");
-        System.out.println("1 - Choose task that needs to be restored");
-        System.out.println("-1 - Go back to main menu");
-        int option = getInt();
-        if (option != 1 && option != -1) {
-            System.out.println("Choose only 1 or -1");
+        int option;
+        do {
+            System.out.println("1 - Choose task that needs to be restored");
+            System.out.println("-1 - Go back to main menu");
+            option = getInt();
         }
+        while (option != 1 && option != -1);
 
         switch (option) {
             case 1:
-                System.out.println("View deleted tasks list and choose the index of task for restoring :");
+                System.out.println("View deleted tasks list and choose the id of task for restoring :");
                 for (int i = 0; i < deletedTasksList.size(); i++) {
-                    System.out.println("tasks list : " + i);
-                    deletedTasksList.get(i).printTaskDescription();
+                    System.out.println("tasks id : " + i);
+                    deletedTasksList.get(i).getTaskDescription();
                 }
                 int taskIndex = getInt();
-                if (taskIndex < 0 || taskIndex >= tasksList.size()) {
-                    System.out.println("Task index is not valid.");
+                do {
+                    System.out.println("Task id is not valid. Try again.");
+                    option = getInt();
                 }
+                while (taskIndex < 0 || taskIndex >= tasksList.size());
 
                 Task restoredTask = deletedTasksList.remove(taskIndex);
                 restoredTask.setDateTime(null);
@@ -59,7 +62,7 @@ public class Application {
                 break;
             case -1:
                 System.out.println("Go back to main menu");
-                System.out.println();
+                //System.out.println();
         }
     }
 
