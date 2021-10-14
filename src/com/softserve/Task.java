@@ -65,7 +65,7 @@ public class Task {
         this.type = split[1];
         this.priority = Integer.parseInt(split[2]);
         this.dateTime = DateUtils.parseFromString(split[3]);
-        this.deletedTime = (split[4] != null) ? DateUtils.parseFromString(split[4]) : null;
+        this.deletedTime = (deletedTime != null) ? DateUtils.parseFromString(split[4]) : null;
     }
 
     public String getPrintTaskDescription() {
@@ -76,10 +76,11 @@ public class Task {
         return description;
     }
 
+
     public String toString() {
         return title + "!" + type + "!" + priority + "!" + DateUtils.dateTimeToString(dateTime) + "!"
-                + ((deletedTime != null) ? DateUtils.dateTimeToString(deletedTime) : null );
+                + ((deletedTime != null) ? DateUtils.dateTimeToString(deletedTime) : null);
     }
+   
 
-    
 }
