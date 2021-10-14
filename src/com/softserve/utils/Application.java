@@ -2,9 +2,12 @@ package com.softserve.utils;
 
 import com.softserve.Task;
 
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.softserve.utils.ConsoleUtils.getInt;
+import static com.softserve.utils.ConsoleUtils.getString;
 import static com.softserve.utils.FileUtils.*;
 
 public class Application {
@@ -12,10 +15,11 @@ public class Application {
     public static List<Task> deletedTasksList;
 
     static void createTask() {
-        //TO DO
+        //TODO
     }
 
     static void editTask() {
+        //TODO
         //TO DO;
     }
 
@@ -53,10 +57,11 @@ public class Application {
                 System.out.println("Go back to main menu");
                 break;
         }
+        //TODO
     }
 
     static void viewTasks() {
-        //TO DO
+        //TODO
     }
 
     public static void main(String[] args) {
@@ -94,4 +99,3 @@ public class Application {
         }
     }
 }
-
