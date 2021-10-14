@@ -208,7 +208,7 @@ public class Application {
         switch (optional) {
             case 1:
                 //show all tasks
-               // getTaskDescription();
+                // getTaskDescription();
                 //    (при выводе надо будет выводить id (index из List<Task) для удаления
 
 
@@ -235,6 +235,7 @@ public class Application {
             case -1:
                 System.out.println("-1 - Enter \"minus one\" to go back to home menu"); //Todo
                 break;
+        }
     }
 
     static void restoreTask() {
@@ -252,7 +253,7 @@ public class Application {
                 System.out.println("View deleted tasks list and choose the id of task for restoring :");
                 for (int i = 0; i < deletedTasksList.size(); i++) {
                     System.out.println("tasks id : " + i);
-                    deletedTasksList.get(i).getTaskDescription();
+                    deletedTasksList.get(i).getPrintTaskDescription();
                 }
                 int taskIndex = getInt();
                 do {
@@ -315,3 +316,5 @@ public class Application {
         }
     }
 }
+
+
