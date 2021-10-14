@@ -49,6 +49,7 @@ public class Application {
             //return new Task(taskString);
         }
         tasksList.add(0, task);
+
     }
 
     static void createTaskStepByStep() {
@@ -197,7 +198,43 @@ public class Application {
     }
 
     static void viewTasks() {
-        //TODO
+        System.out.println("For viewing tasks choose option, please!");
+        System.out.println("1 -View all your tasks");
+        System.out.println("2- View deleted tasks");
+        System.out.println("3- Input id to view tasks. You can find ID by entering 1");
+        System.out.println("4- Sort tasks");
+        System.out.println("-1 - Enter \"minus one\" to go back to home menu");
+        int optional = getInt();
+        switch (optional) {
+            case 1:
+                //show all tasks
+               // getTaskDescription();
+                //    (при выводе надо будет выводить id (index из List<Task) для удаления
+
+
+            case 2:
+                //show deleted tasks
+
+            case 3:
+                //input id to view tasks
+
+            case 4:
+                System.out.println("For viewing sorted tasks choose option, please!");
+                //if sort tasks - use loop
+                //////1 sorting from erliet to late time //opt?
+                //////1 - on the concrete day   // end - start // string int?
+                //////2- period of time from... to.. (week , month)
+                //2 - by priority (first data, than priority)? opt<
+                ///////1 - all by priority from important to less improtant
+                ///////1 - all by priority from less important to impertant
+                //////3 - only chosen priority
+                //3- by tipe (first data, than priority)? opt<
+                //4 - by title or world // methodth containts
+                //5- by time
+                //-1 - back
+            case -1:
+                System.out.println("-1 - Enter \"minus one\" to go back to home menu"); //Todo
+                break;
     }
 
     static void restoreTask() {
@@ -236,6 +273,7 @@ public class Application {
                 //System.out.println();
         }
     }
+
 
     public static void main(String[] args) {
         createIfNotExists(taskFileName);
