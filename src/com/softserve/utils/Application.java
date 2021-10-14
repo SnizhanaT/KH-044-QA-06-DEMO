@@ -8,29 +8,31 @@ import java.util.List;
 
 import static com.softserve.utils.ConsoleUtils.getInt;
 import static com.softserve.utils.ConsoleUtils.getString;
+import static com.softserve.utils.DateUtils.parseFromString;
 import static com.softserve.utils.FileUtils.*;
 public class Application {
     public static List<Task> tasksList;
     public static List<Task> deletedTasksList;
+    public static Task task;
 
     static void createTask() {
-        Task task;
         while (true) {
         System.out.println("Choose way of creating. Enter number:\n" +
                 "1 - Fast way - in one line\n" +
                 "2 - Usual way - step by step\n"+
                 "-1 - Go back to main menu");
         int priority = ConsoleUtils.getInt();
-        switch (priority == 1) {
+        switch (priority) {
             case 1:
-                task = createTaskInOneLine();
+                //task = createTaskInOneLine();
                 break;
             case 2:
-                task = createTaskStepByStep();
+                //task = createTaskStepByStep();
                 break;
             case -1:
                  break;
         }
+    }
     }
 
     static void createTaskInOneLine(){
@@ -45,6 +47,7 @@ public class Application {
             }
             System.out.println("Confirm this task: " + TaskInOneLine);
             System.out.println("Task successfully created");
+            //return new Task(taskString);
         }
         tasksList.add(0, task);
     }
@@ -77,7 +80,7 @@ public class Application {
             }
             System.out.println("Confirm this task:" + title + type + priority + dateTime);
             LocalDateTime dateTimeNew = parseFromString(dateTime);
-            return new Task(title, type, priority, dateTimeNew);
+            //return new Task(title, type, priority, dateTimeNew);
         }
         tasksList.add(0, task);
     }
