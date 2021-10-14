@@ -37,7 +37,7 @@ public class Application {
                 System.out.println("View tasks and input id of the task that needs to be deleted:");
                 for (int i = 0; i < deletedTasksList.size(); i++) {
                     System.out.println("Task id: " + i);
-                    deletedTasksList.get(i).printTaskDescription();
+                    deletedTasksList.get(i).getPrintTaskDescription();
                 }
                 int taskIndex;
                 do {
@@ -47,7 +47,7 @@ public class Application {
                 while (taskIndex > deletedTasksList.size() & taskIndex <= 0);
                 System.out.println("Deleting task " + tasksList.get(taskIndex));
                 Task deletedTask = tasksList.remove(taskIndex);
-                deletedTask.setDeletedDateTime();
+                deletedTask.setDeletedTime(LocalDateTime.now());
                 System.out.println("Successfully deleted");
                 writeFile(deletedTaskFileName, deletedTasksList);
                 tasksList.add(deletedTask);
