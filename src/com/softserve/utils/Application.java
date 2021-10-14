@@ -2,12 +2,10 @@ package com.softserve.utils;
 
 import com.softserve.Task;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.softserve.utils.ConsoleUtils.getInt;
-import static com.softserve.utils.ConsoleUtils.getString;
 import static com.softserve.utils.FileUtils.*;
 
 public class Application {
@@ -24,29 +22,33 @@ public class Application {
 
     static void deleteTask() {
         System.out.println("This is delete task menu \nChoose option: ");
-        System.out.println("1 - Choose task that needs to be deleted");
-        System.out.println("-1 - Go back to main menu");
+        System.out.println("1 - Choose task that needs to be deleted \n-1 - Go back to main menu");
         int option = getInt();
-        switch (option) {
-            case 1:
-                System.out.println("View tasks and input id of the task that needs to be deleted:");
-                for (Task task : tasksList) {
-                    System.out.println(task);
-                }
-                //юзер сам буде рахувати індекс по виведеним рядкам чи як нам показати юзеру індекси
-                int taskId = getInt();
-                System.out.println("Deleting task " + tasksList.get(taskId));
-                tasksList.remove(taskId);
-                LocalDateTime deletedDateTime = LocalDateTime.now();
-                System.out.println("Successfully deleted");
-                writeFile(taskFileName, tasksList);
-
-                //deletedTasksList.add(deletedtask); - як нам знайти видалений таск тепер
-                //writeFile(deletedTaskFileName, deletedTasksList);
-
-            case 2:
-                // go back to main menu(how?)
+        if (option != 1 && option != -1) {
+            System.out.println("Choose only 1 or -1");
         }
+            switch (option) {
+                case 1:
+                    System.out.println("View tasks and input id of the task that needs to be deleted:");
+                    for (int i = 0; i < deletedTasksList.size(); i++) {
+                        System.out.println("Task id: " + i);
+                        deletedTasksList.get(i).printTaskDescription();
+                    }
+                    int taskIndex = getInt();
+                    System.out.println("Deleting task " + tasksList.get(taskIndex));
+                    Task deletedTask = tasksList.remove(taskIndex);
+                    deletedTask.setDeletedDateTime();
+                    System.out.println("Successfully deleted");
+                    writeFile(deletedTaskFileName, deletedTasksList);
+                    tasksList.add(deletedTask);
+                    writeFile(taskFileName, tasksList);
+                    break;
+                case -1:
+                    System.out.println("Go back to main menu");
+                    break;
+                default:
+                    System.out.println("Invalid option");
+            }
     }
 
     static void viewTasks() {
@@ -55,10 +57,10 @@ public class Application {
 
     public static void main(String[] args) {
         createIfNotExists(taskFileName);
-        readFile(taskFileName);
+        tasksList = readFile(taskFileName);
 
         createIfNotExists(deletedTaskFileName);
-        readFile(deletedTaskFileName);
+        deletedTasksList = readFile(deletedTaskFileName);
 
         int option = 1;
         while (option != 0) {

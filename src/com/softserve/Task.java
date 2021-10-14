@@ -66,7 +66,7 @@ public class Task {
 
     }
 
-    public void getTaskDescription() {
+    public void printTaskDescription() {
         System.out.println("Task title: " + title);
         System.out.println("Task type: " + type);
         System.out.println("Priority: " + priority);
