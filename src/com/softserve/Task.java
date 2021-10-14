@@ -10,6 +10,7 @@ public class Task {
     private int priority;
     private LocalDateTime dateTime;
     private LocalDateTime deletedTime;
+    private String description;
 
     public String getTitle() {
         return title;
@@ -67,18 +68,18 @@ public class Task {
         this.deletedTime = (split[4] != null) ? DateUtils.parseFromString(split[4]) : null;
     }
 
-    public void getTaskDescription() {
-        System.out.println("Task title: " + title);
-        System.out.println("Task type: " + type);
-        System.out.println("Priority: " + priority);
-        System.out.println("Date and Time: " + dateTime);
+    public String getPrintTaskDescription() {
+        description = "Task title: " + title + "Task type: " + type + "Priority: " + priority + "Date and Time: " + dateTime ;
         if (deletedTime != null) {
-            System.out.println("Deleted Date and Time: " + deletedTime);
+            description = description + "Deleted Date and Time: " + deletedTime;
         }
+        return description;
     }
 
     public String toString() {
         return title + "!" + type + "!" + priority + "!" + DateUtils.dateTimeToString(dateTime) + "!"
                 + ((deletedTime != null) ? DateUtils.dateTimeToString(deletedTime) : null );
     }
+
+    
 }

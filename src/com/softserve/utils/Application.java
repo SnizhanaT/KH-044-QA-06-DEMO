@@ -3,6 +3,7 @@ package com.softserve.utils;
 import com.softserve.Task;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.softserve.utils.ConsoleUtils.getInt;
@@ -14,27 +15,27 @@ public class Application {
     public static List<Task> deletedTasksList;
 
     static void createTask() {
-        //TO DO
+        //TODO
     }
-    
+
     static void editTask() {
-        //TO DO
+        //TODO
     }
 
     static void deleteTask() {
-        //TO DO
+        //TODO
     }
 
     static void viewTasks() {
-        //TO DO
+        //TODO
     }
 
     public static void main(String[] args) {
         createIfNotExists(taskFileName);
-        readFile(taskFileName);
+        tasksList = readFile(taskFileName);
 
         createIfNotExists(deletedTaskFileName);
-        readFile(deletedTaskFileName);
+        deletedTasksList = readFile(deletedTaskFileName);
 
         int option = 1;
         while (option != 0) {
