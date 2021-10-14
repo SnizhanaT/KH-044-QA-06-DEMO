@@ -34,31 +34,41 @@ public class Application {
         System.out.println("1 - Choose task that needs to be restored");
         System.out.println("-1 - Go back to main menu");
         int option = getInt();
+        if (option != 1 && option != -1) {
+            System.out.println("Choose only 1 or -1");
+        }
+
         switch (option) {
             case 1:
-                System.out.println("View tasks and input id of the task that needs to be restored:");
-                for (Task delTask : deletedTasksList) {
-                    System.out.println(delTask);
+                System.out.println("View deleted tasks list and choose the index of task for restoring :");
+                for (int i = 0; i < deletedTasksList.size(); i++) {
+                    System.out.println("tasks list : " + i);
+                    deletedTasksList.get(i).printTaskDescription();
                 }
-                int taskId = getInt();
-                System.out.println("Restore the task " + deletedTasksList.get(taskId));
-                deletedTasksList.remove(taskId);
+                int taskIndex = getInt();
+                if (taskIndex < 0 || taskIndex >= tasksList.size()) {
+                    System.out.println("Task index is not valid.");
+                }
+
+                Task restoredTask = deletedTasksList.remove(taskIndex);
+                restoredTask.setDateTime(null);
+                tasksList.add(restoredTask);
                 writeFile(deletedTaskFileName, deletedTasksList);
-                LocalDateTime deletedDateTime = LocalDateTime.now();
+                writeFile(taskFileName, tasksList);
                 System.out.println("Successfully restored");
                 break;
-            case 2:
-
-
+            case -1:
+                System.out.println("Go back to main menu");
+                System.out.println();
         }
     }
 
     public static void main(String[] args) {
         createIfNotExists(taskFileName);
-        readFile(taskFileName);
+        tasksList = readFile(taskFileName);
 
         createIfNotExists(deletedTaskFileName);
-        readFile(deletedTaskFileName);
+        deletedTasksList = readFile(deletedTaskFileName);
 
         int option = 1;
         while (option != 0) {

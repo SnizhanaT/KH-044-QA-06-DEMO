@@ -38,7 +38,7 @@ public class Task {
         return dateTime;
     }
 
-    public void setDateTime() {
+    public void setDateTime(LocalDateTime localDateTime) {
         this.dateTime = dateTime;
     }
 
@@ -57,7 +57,7 @@ public class Task {
         this.dateTime = DateUtils.parseFromString(split[3]);
     }
 
-    public void getTaskDescription() {
+    public void printTaskDescription() {
         System.out.println("Task title: " + title);
         System.out.println("Task type: " + type);
         System.out.println("Priority: " + priority);
@@ -68,3 +68,4 @@ public class Task {
         return title + "!" + type + "!" + priority + "!" + dateTime;
     }
 }
+
