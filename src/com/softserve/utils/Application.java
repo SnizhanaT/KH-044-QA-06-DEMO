@@ -7,6 +7,7 @@ import java.util.List;
 
 import static com.softserve.utils.ConsoleUtils.getInt;
 import static com.softserve.utils.ConsoleUtils.getString;
+import static com.softserve.utils.DateUtils.parseFromString;
 import static com.softserve.utils.FileUtils.*;
 
 public class Application {
@@ -87,9 +88,7 @@ public class Application {
 
         }
         LocalDateTime localDateTime = DateUtils.parseFromString(dateTime);
-        System.out.println("Task successfully created!");
         return new Task(title, type, priority, localDateTime);
-
     }
 
 
@@ -99,12 +98,7 @@ public class Application {
             System.out.println("Task list is empty. Back to main menu");
             return;
         }
-        System.out.println("View tasks list and choose the id of task for editing :");
-        for (int i = 0; i < tasksList.size(); i++) {
-            System.out.println("tasks id : " + i);
-            // tasksList.get(i).getPrintTaskDescription();
-            System.out.println(tasksList.get(i));
-        }
+
 
         System.out.println("Enter task index to edit:");
         int taskIndex = getInt();
@@ -186,19 +180,20 @@ public class Application {
                 System.out.println("View tasks and input id of the task that needs to be deleted:");
                 for (int i = 0; i < tasksList.size(); i++) {
                     System.out.println("Task id: " + i);
-                    System.out.println(tasksList.get(i));
+                    tasksList.get(i).getPrintTaskDescription();
                 }
                 int taskIndex;
                 do {
                     System.out.println("Input task id");
                     taskIndex = getInt();
                 }
-                while (taskIndex >= tasksList.size() & taskIndex <= 0);
+                while (taskIndex >= tasksList.size() & taskIndex < 0);
 
                 Task deletedTask = tasksList.remove(taskIndex);
                 deletedTask.setDeletedTime(LocalDateTime.now());
                 writeFile(deletedTaskFileName, deletedTasksList);
                 deletedTasksList.add(deletedTask);
+                writeFile(deletedTaskFileName, deletedTasksList);
                 writeFile(taskFileName, tasksList);
                 System.out.println("Successfully deleted! Back to main menu.");
                 break;
@@ -209,21 +204,21 @@ public class Application {
     }
 
     static void viewTasks() {
-        int option;
-        System.out.println("For viewing tasks choose option, please!");
-        System.out.println("1 -View number of  your all tasks");
-        System.out.println("2- View list of you actual task with ID");
-        System.out.println("3- Input id to view tasks. ");
-        System.out.println("4- View tasks in range between two task ID");
-        System.out.println("5- View deleted tasks");
-        System.out.println("-1 - Enter \"minus one\" to go back to home menu");
-        option = getInt();
+            int option;
+            System.out.println("For viewing tasks choose option, please!");
+            System.out.println("1 -View number of  your all tasks");
+            System.out.println("2- View list of you actual task with ID");
+            System.out.println("3- Input id to view tasks. ");
+            System.out.println("4- To view tasks from any start number to  any end number");
+            System.out.println("5- View deleted tasks");
+            System.out.println("-1 - Enter \"minus one\" to go back to home menu");
+            option = getInt();
 
         switch (option) {
             case 1:
-                System.out.println("Total number of actual tasks is: " + tasksList.size());
-                System.out.println("Total number of deleted tasks is: " + deletedTasksList.size());
-                System.out.println("Total number of all your tasks is: " + (Integer.valueOf(tasksList.size()) +
+                System.out.println("Total number of actual tasks is: " +  tasksList.size());
+                System.out.println("Total number of deleted tasks is: " +  deletedTasksList.size());
+                System.out.println("Total number of all your tasks is: " +  (Integer.valueOf(tasksList.size()) +
                         Integer.valueOf((deletedTasksList.size()))));
                 break;
             case 2:
@@ -245,10 +240,10 @@ public class Application {
                 System.out.println(tasksList.get(indOfTask));
                 break;
             case 4:
-                System.out.println("View tasks in range between :");
-                System.out.println("Enter task ID start of range ");
+                System.out.println("To view tasks from the chosen start number to the  chosen end number not including");
+                System.out.println("Enter start number");  //result will print in one line
                 int startTask = getInt();
-                System.out.println("Enter task end of range not including (result will display in one line)");
+                System.out.println("Enter end number");
                 int endTask = getInt();
                 if (endTask > tasksList.size()) try {
                     throw new Exception("The end number  is bigger than you have tasks");
@@ -256,7 +251,7 @@ public class Application {
                     System.out.println("You have less tasks");
                     e.printStackTrace();
                 }
-                System.out.println(tasksList.subList(startTask, endTask));
+                System.out.println(tasksList.subList(startTask, endTask ));
                 break;
             case 5:
                 //show deleted tasks
@@ -267,8 +262,8 @@ public class Application {
                         System.out.println(deletedTasksList.get(i));
                     }
                 } else {
-                    System.out.println("You don't have any deleted task");
-                }
+                        System.out.println("You don't have any deleted task");
+                    }
                 break;
             case -1:
                 System.out.println("You successfully came back to home menu");
@@ -284,32 +279,32 @@ public class Application {
             System.out.println("-1 - Go back to main menu");
             option = getInt();
         }
-        while (option != 1 & option != -1);
+        while (option != 1 && option != -1);
 
         switch (option) {
             case 1:
                 System.out.println("View deleted tasks list and choose the id of task for restoring :");
                 for (int i = 0; i < deletedTasksList.size(); i++) {
                     System.out.println("tasks id : " + i);
-                    System.out.println(deletedTasksList.get(i));
+                    deletedTasksList.get(i).getPrintTaskDescription();
                 }
                 int taskIndex;
                 do {
                     System.out.println("Input task id :");
                     taskIndex = getInt();
                 }
-                while (taskIndex <= 0 & taskIndex >= deletedTasksList.size());
+                while (taskIndex < 0 || taskIndex >= tasksList.size());
 
                 Task restoredTask = deletedTasksList.remove(taskIndex);
-                restoredTask.setDateTime(LocalDateTime.now());
-                writeFile(taskFileName, tasksList);
-                writeFile(deletedTaskFileName, deletedTasksList);
+                restoredTask.setDateTime(null);
                 tasksList.add(restoredTask);
+                writeFile(deletedTaskFileName, deletedTasksList);
                 writeFile(taskFileName, tasksList);
                 System.out.println("Successfully restored");
                 break;
             case -1:
                 System.out.println("Go back to main menu");
+                //System.out.println();
         }
     }
 
