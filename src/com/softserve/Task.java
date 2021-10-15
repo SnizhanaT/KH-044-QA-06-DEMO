@@ -25,7 +25,7 @@ public class Task {
     }
 
     public void setType(String types) {
-        this.type = type;
+        this.type = types;
     }
 
     public int getPriority() {

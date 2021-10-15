@@ -135,9 +135,9 @@ public class Application {
                 System.out.println("Task: " + task.toString());
                 System.out.println("Enter title");
                 String title = getString();
-                System.out.println("Enter type");
+                System.out.println("Enter type: Personal, Work or Household");
                 String type = getString();
-                System.out.println("Enter priority");
+                System.out.println("Enter priority: 1 -High, 2 - Medium, 3 - Low");
                 int priority = getInt();
                 task.setTitle(title);
                 task.setType(type);
@@ -153,14 +153,14 @@ public class Application {
                 break;
             case 3:
                 System.out.println("Task type: " + task.getType());
-                System.out.println("Enter type");
+                System.out.println("Enter type: Personal, Work or Household");
                 String tp = getString();
                 task.setType(tp);
                 System.out.println("Task type was updated.");
                 break;
             case 4:
                 System.out.println("Task priority: " + task.getPriority());
-                System.out.println("Enter priority");
+                System.out.println("Enter priority: 1 -High, 2 - Medium, 3 - Low");
                 int p = getInt();
                 task.setPriority(p);
                 System.out.println("Task priority was updated.");
