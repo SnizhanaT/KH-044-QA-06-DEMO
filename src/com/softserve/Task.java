@@ -10,7 +10,7 @@ public class Task {
     private int priority;
     private LocalDateTime dateTime;
     private LocalDateTime deletedTime;
-    private String description;
+
 
     public String getTitle() {
         return title;
@@ -71,6 +71,7 @@ public class Task {
 
 
     public String getPrintTaskDescription() {
+        String description = null;
         description = "Task title: " + title + "Task type: " + type + "Priority: " + priority + "Date and Time: " + dateTime ;
         if (deletedTime != null) {
             description = description + "Deleted Date and Time: " + deletedTime;

@@ -15,40 +15,36 @@ public class Application {
     public static Task task;
 
     static void createTask() {
-        while (true) {
+
         System.out.println("Choose way of creating. Enter number:\n" +
                 "1 - Fast way - in one line\n" +
                 "2 - Usual way - step by step\n"+
                 "-1 - Go back to main menu");
-        int priority = ConsoleUtils.getInt();
-        switch (priority) {
+        int option = getInt();
+        switch (option) {
             case 1:
-                //task = createTaskInOneLine();
+                createTaskInOneLine();
                 break;
             case 2:
-                //task = createTaskStepByStep();
+                 createTaskStepByStep();
                 break;
             case -1:
                  break;
         }
-    }
+
     }
 
     static void createTaskInOneLine(){
-        while (true) {
+
             System.out.println("For creating task enter data according to this pattern, please!\n" +
                     "Task construction:  Task title!type Personal or Work or Household!number of priority 1 - High, 2 - Medium, 3 - Low!datetime dd-MM-yyyy HH:mm\n" +
                     "Task example: Come to the DEMO!Work!1!15-10-2021 19:00\n" +
                     "-1 - Go back");
-            String TaskInOneLine = ConsoleUtils.getString();
-            if (TaskInOneLine.equals("-1")) {
-                break;
-            }
-            System.out.println("Confirm this task: " + TaskInOneLine);
+            String taskInOneLine = ConsoleUtils.getString();
             System.out.println("Task successfully created");
             //return new Task(taskString);
-        }
-        tasksList.add(0, task);
+
+        tasksList.add(task);
 
     }
 
@@ -56,25 +52,25 @@ public class Application {
         while (true) {
             System.out.println("For creating task enter task title, please!\n" +
                     "-1 - Go back");
-            String title = ConsoleUtils.getString();
+            String title = getString();
             if(title.equals("-1")) {
                 break;
             }
             System.out.println("Enter a type of task, please: Personal or Work or Household.\n" +
                     "-1 - Go back");
-            String type = ConsoleUtils.getString();
+            String type = getString();
             if(type.equals("-1")){
                 break;
             }
             System.out.println("Enter task priority. Choose task priority and write number of it, please: 1 -High, 2 - Medium, 3 - Low\n" +
                     "-1 - Go back");
-            int priority = ConsoleUtils.getInt();
-            if (priority==-1){
+            int priority = getInt();
+            if (priority == -1){
                 break;
             }
             System.out.println("Enter date and time dd-MM-yyyy HH:mm.\n" +
                     "-1 - Go back");
-            String dateTime = ConsoleUtils.getString();
+            String dateTime = getString();
             if(dateTime.equals("-1")){
                 break;
             }
@@ -194,46 +190,74 @@ public class Application {
                 System.out.println("Go back to main menu");
                 break;
         }
-        //TODO
+
     }
 
+
     static void viewTasks() {
-        System.out.println("For viewing tasks choose option, please!");
-        System.out.println("1 -View all your tasks");
-        System.out.println("2- View deleted tasks");
-        System.out.println("3- Input id to view tasks. You can find ID by entering 1");
-        System.out.println("4- Sort tasks");
-        System.out.println("-1 - Enter \"minus one\" to go back to home menu");
-        int optional = getInt();
-        switch (optional) {
+            int option;
+            System.out.println("For viewing tasks choose option, please!");
+            System.out.println("1 -View number of  your all tasks");
+            System.out.println("2- View list of you actual task with ID");
+            System.out.println("3- Input id to view tasks. ");
+            System.out.println("4- To view tasks from any start number to  any end number");
+            System.out.println("5- View deleted tasks");
+            System.out.println("-1 - Enter \"minus one\" to go back to home menu");
+            option = getInt();
+
+        switch (option) {
             case 1:
-                //show all tasks
-                // getTaskDescription();
-                //    (при выводе надо будет выводить id (index из List<Task) для удаления
-
-
+                System.out.println("Total number of actual tasks is: " +  tasksList.size());
+                System.out.println("Total number of deleted tasks is: " +  deletedTasksList.size());
+                System.out.println("Total number of all your tasks is: " +  (Integer.valueOf(tasksList.size()) +
+                        Integer.valueOf((deletedTasksList.size()))));
+                break;
             case 2:
-                //show deleted tasks
-
+                boolean ifEmptyTaskList = tasksList.isEmpty();
+                System.out.println(tasksList.isEmpty());
+                if (ifEmptyTaskList == true) {
+                    System.out.println("You don't have any task");
+                } else {
+                    for (int i = 0; i < tasksList.size(); i++) {
+                        System.out.println("tasks id : " + i);
+                        System.out.println(tasksList.get(i));
+                    }
+                }
+                break;
             case 3:
-                //input id to view tasks
-
+                System.out.println("Enter id of task that you want to view");
+                int indOfTask = getInt();
+                tasksList.get(indOfTask);
+                System.out.println(tasksList.get(indOfTask));
+                break;
             case 4:
-                System.out.println("For viewing sorted tasks choose option, please!");
-                //if sort tasks - use loop
-                //////1 sorting from erliet to late time //opt?
-                //////1 - on the concrete day   // end - start // string int?
-                //////2- period of time from... to.. (week , month)
-                //2 - by priority (first data, than priority)? opt<
-                ///////1 - all by priority from important to less improtant
-                ///////1 - all by priority from less important to impertant
-                //////3 - only chosen priority
-                //3- by tipe (first data, than priority)? opt<
-                //4 - by title or world // methodth containts
-                //5- by time
-                //-1 - back
+                System.out.println("To view tasks from the chosen start number to the  chosen end number not including");
+                System.out.println("Enter start number");  //result will print in one line
+                int startTask = getInt();
+                System.out.println("Enter end number");
+                int endTask = getInt();
+                if (endTask > tasksList.size()) try {
+                    throw new Exception("The end number  is bigger than you have tasks");
+                } catch (Exception e) {
+                    System.out.println("You have less tasks");
+                    e.printStackTrace();
+                }
+                System.out.println(tasksList.subList(startTask, endTask ));
+                break;
+            case 5:
+                //show deleted tasks
+                boolean ifEmptyDeletedTaskList = deletedTasksList.isEmpty();
+                if (ifEmptyDeletedTaskList == false) {
+                    for (int i = 0; i < deletedTasksList.size(); i++) {
+                        System.out.println("tasks id : " + i);
+                        System.out.println(deletedTasksList.get(i));
+                    }
+                } else {
+                        System.out.println("You don't have any deleted task");
+                    }
+                break;
             case -1:
-                System.out.println("-1 - Enter \"minus one\" to go back to home menu"); //Todo
+                System.out.println("You successfully came back to home menu");
                 break;
         }
     }
@@ -276,11 +300,10 @@ public class Application {
     }
 
 
-    public static void main(String[] args) {
+    public static void run() {
         createIfNotExists(taskFileName);
         tasksList = readFile(taskFileName);
 
-        tasksList.add(new Task("asd", "asd", 432, LocalDateTime.now()));
         createIfNotExists(deletedTaskFileName);
         deletedTasksList = readFile(deletedTaskFileName);
 
