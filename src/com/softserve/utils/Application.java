@@ -9,76 +9,86 @@ import static com.softserve.utils.ConsoleUtils.getInt;
 import static com.softserve.utils.ConsoleUtils.getString;
 import static com.softserve.utils.DateUtils.parseFromString;
 import static com.softserve.utils.FileUtils.*;
+
 public class Application {
     public static List<Task> tasksList;
     public static List<Task> deletedTasksList;
-    public static Task task;
 
     static void createTask() {
-
+        Task task = null;
         System.out.println("Choose way of creating. Enter number:\n" +
                 "1 - Fast way - in one line\n" +
-                "2 - Usual way - step by step\n"+
+                "2 - Usual way - step by step\n" +
                 "-1 - Go back to main menu");
-        int option = getInt();
+
+        int option = ConsoleUtils.getInt();
         switch (option) {
             case 1:
-                createTaskInOneLine();
+                task = createTaskInOneLine();
                 break;
             case 2:
-                 createTaskStepByStep();
+                task = createTaskStepByStep();
+
                 break;
             case -1:
-                 break;
+                task = null;
+                break;
+        }
+        if (task == null) {
+            System.out.println("Go back to main menu");
+        } else {
+            tasksList.add(task);
+            FileUtils.writeFile("tasks.txt", tasksList);
         }
 
     }
 
-    static void createTaskInOneLine(){
 
-            System.out.println("For creating task enter data according to this pattern, please!\n" +
-                    "Task construction:  Task title!type Personal or Work or Household!number of priority 1 - High, 2 - Medium, 3 - Low!datetime dd-MM-yyyy HH:mm\n" +
-                    "Task example: Come to the DEMO!Work!1!15-10-2021 19:00\n" +
-                    "-1 - Go back");
-            String taskInOneLine = ConsoleUtils.getString();
+    public static Task createTaskInOneLine() {
+        System.out.println("For creating task enter data according to this pattern, please!\n" +
+                "Task construction:  Task title!type Personal or Work or Household!number of priority 1 - High, 2 - Medium, 3 - Low!datetime dd-MM-yyyy HH:mm\n" +
+                "Task example: Come to the DEMO!Work!1!15-10-2021 19:00\n" +
+                "-1 - Go back");
+        String taskInOneLine = ConsoleUtils.getString();
+
+        if (taskInOneLine.contains("!")) {
             System.out.println("Task successfully created");
-            //return new Task(taskString);
-
-        tasksList.add(task);
-
+        } else {
+            return null;
+        }
+        return new Task(taskInOneLine);
     }
 
-    static void createTaskStepByStep() {
-        while (true) {
-            System.out.println("For creating task enter task title, please!\n" +
-                    "-1 - Go back");
-            String title = getString();
-            if(title.equals("-1")) {
-                break;
-            }
-            System.out.println("Enter a type of task, please: Personal or Work or Household.\n" +
-                    "-1 - Go back");
-            String type = getString();
-            if(type.equals("-1")){
-                break;
-            }
-            System.out.println("Enter task priority. Choose task priority and write number of it, please: 1 -High, 2 - Medium, 3 - Low\n" +
-                    "-1 - Go back");
-            int priority = getInt();
-            if (priority == -1){
-                break;
-            }
-            System.out.println("Enter date and time dd-MM-yyyy HH:mm.\n" +
-                    "-1 - Go back");
-            String dateTime = getString();
-            if(dateTime.equals("-1")){
-                break;
-            }
-            System.out.println("Confirm this task:" + title + type + priority + dateTime);
-            LocalDateTime dateTimeNew = parseFromString(dateTime);
-            //return new Task(title, type, priority, dateTimeNew);
+
+    public static Task createTaskStepByStep() {
+
+        System.out.println("For creating task enter task title, please!\n" +
+                "-1 - Go back");
+        String title = ConsoleUtils.getString();
+        if (title.equals("-1")) {
+            return null;
         }
-        tasksList.add(0, task);
+        System.out.println("Enter a type of task, please: Personal or Work or Household.\n" +
+                "-1 - Go back");
+        String type = ConsoleUtils.getString();
+        if (type.equals("-1")) {
+            return null;
+        }
+        System.out.println("Enter task priority. Choose task priority and write number of it, please: 1 -High, 2 - Medium, 3 - Low\n" +
+                "-1 - Go back");
+        int priority = ConsoleUtils.getInt();
+        if (priority == -1) {
+            return null;
+        }
+        System.out.println("Enter date and time dd-MM-yyyy HH:mm.\n" +
+                "-1 - Go back");
+        String dateTime = ConsoleUtils.getString();
+        if (dateTime.equals("-1")) {
+            return null;
+
+        }
+        LocalDateTime localDateTime = DateUtils.parseFromString(dateTime);
+        return new Task(title, type, priority, localDateTime);
     }
 
 
