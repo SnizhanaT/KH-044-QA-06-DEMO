@@ -115,11 +115,11 @@ public class Application {
 
         Task task = tasksList.get(taskIndex);
         System.out.println("Select how to edit:");
+        System.out.println("0 - Go back to main menu");
         System.out.println("1 - Update all fields");
         System.out.println("2 - Update title");
         System.out.println("3 - Update type");
         System.out.println("4 - Update priority");
-        System.out.println("-1 - Go back to main menu");
 
         int option = getInt();
         while (option < 0 || option > 4) {
