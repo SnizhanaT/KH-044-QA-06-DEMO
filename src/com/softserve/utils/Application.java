@@ -168,31 +168,30 @@ public class Application {
         switch (option) {
             case 1:
                 System.out.println("View tasks and input id of the task that needs to be deleted:");
-                for (int i = 0; i < deletedTasksList.size(); i++) {
+                for (int i = 0; i < tasksList.size(); i++) {
                     System.out.println("Task id: " + i);
-                    deletedTasksList.get(i).getPrintTaskDescription();
+                    tasksList.get(i).getPrintTaskDescription();
                 }
                 int taskIndex;
                 do {
                     System.out.println("Input task id");
                     taskIndex = getInt();
                 }
-                while (taskIndex > deletedTasksList.size() & taskIndex <= 0);
-                System.out.println("Deleting task " + tasksList.get(taskIndex));
+                while (taskIndex >= tasksList.size() & taskIndex < 0);
+
                 Task deletedTask = tasksList.remove(taskIndex);
                 deletedTask.setDeletedTime(LocalDateTime.now());
-                System.out.println("Successfully deleted");
                 writeFile(deletedTaskFileName, deletedTasksList);
-                tasksList.add(deletedTask);
+                deletedTasksList.add(deletedTask);
+                writeFile(deletedTaskFileName, deletedTasksList);
                 writeFile(taskFileName, tasksList);
+                System.out.println("Successfully deleted! Back to main menu.");
                 break;
             case -1:
                 System.out.println("Go back to main menu");
                 break;
         }
-
     }
-
 
     static void viewTasks() {
             int option;
@@ -279,10 +278,10 @@ public class Application {
                     System.out.println("tasks id : " + i);
                     deletedTasksList.get(i).getPrintTaskDescription();
                 }
-                int taskIndex = getInt();
+                int taskIndex;
                 do {
-                    System.out.println("Task id is not valid. Try again.");
-                    option = getInt();
+                    System.out.println("Input task id :");
+                    taskIndex = getInt();
                 }
                 while (taskIndex < 0 || taskIndex >= tasksList.size());
 
