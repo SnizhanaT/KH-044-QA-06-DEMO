@@ -102,7 +102,6 @@ public class Application {
         System.out.println("View tasks list and choose the id of task for editing :");
         for (int i = 0; i < tasksList.size(); i++) {
             System.out.println("tasks id : " + i);
-            // tasksList.get(i).getPrintTaskDescription();
             System.out.println(tasksList.get(i));
         }
 
@@ -116,11 +115,11 @@ public class Application {
 
         Task task = tasksList.get(taskIndex);
         System.out.println("Select how to edit:");
-        System.out.println("0 - Go back to main menu");
         System.out.println("1 - Update all fields");
         System.out.println("2 - Update title");
         System.out.println("3 - Update type");
         System.out.println("4 - Update priority");
+        System.out.println("-1 - Go back to main menu");
 
         int option = getInt();
         while (option < 0 || option > 4) {
@@ -174,6 +173,9 @@ public class Application {
 
     static void deleteTask() {
         System.out.println("This is delete task menu.");
+        if (tasksList.isEmpty()) {
+            System.out.println("Task list is empty. Back to main menu");
+            return;}
         int option;
         do {
             System.out.println("Choose option: \n1 - Choose task that needs to be deleted \n-1 - Go back to main menu");
@@ -197,10 +199,10 @@ public class Application {
 
                 Task deletedTask = tasksList.remove(taskIndex);
                 deletedTask.setDeletedTime(LocalDateTime.now());
-                writeFile(deletedTaskFileName, deletedTasksList);
-                deletedTasksList.add(deletedTask);
                 writeFile(taskFileName, tasksList);
-                System.out.println("Successfully deleted! Back to main menu.");
+                deletedTasksList.add(deletedTask);
+                writeFile(deletedTaskFileName, deletedTasksList);
+                System.out.println("Task was successfully deleted! Back to main menu.");
                 break;
             case -1:
                 System.out.println("Go back to main menu");
@@ -259,7 +261,6 @@ public class Application {
                 System.out.println(tasksList.subList(startTask, endTask));
                 break;
             case 5:
-                //show deleted tasks
                 boolean ifEmptyDeletedTaskList = deletedTasksList.isEmpty();
                 if (ifEmptyDeletedTaskList == false) {
                     for (int i = 0; i < deletedTasksList.size(); i++) {
@@ -278,6 +279,9 @@ public class Application {
 
     static void restoreTask() {
         System.out.println("This is restore task menu \nChoose option: ");
+        if (deletedTasksList.isEmpty()) {
+            System.out.println("Deleted task list is empty. Back to main menu");
+            return;}
         int option;
         do {
             System.out.println("1 - Choose task that needs to be restored");
@@ -302,11 +306,10 @@ public class Application {
 
                 Task restoredTask = deletedTasksList.remove(taskIndex);
                 restoredTask.setDateTime(LocalDateTime.now());
-                writeFile(taskFileName, tasksList);
                 writeFile(deletedTaskFileName, deletedTasksList);
                 tasksList.add(restoredTask);
                 writeFile(taskFileName, tasksList);
-                System.out.println("Successfully restored");
+                System.out.println("Task was successfully restored");
                 break;
             case -1:
                 System.out.println("Go back to main menu");
